@@ -10,10 +10,15 @@ class UserModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'm_user';
-    protected $primaryKey = 'user_id';
+    protected $table = 'm_user'; // nama table
+    protected $primaryKey = 'user_id'; // primary key pada table tsb
 
-    protected $fillable = ['level_id', 'username', 'nama', 'password'];
+    protected $fillable = [
+        'level_id',
+        'username',
+        'nama',
+        'password',
+    ];
 
     public function level(): BelongsTo
     {

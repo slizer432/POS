@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Level Pengguna</title>
 </head>
 
@@ -15,11 +13,11 @@
             <th>Kode Level</th>
             <th>Nama Level</th>
         </tr>
-        @foreach ($data as $dt)
+        @foreach ($data as $d)
             <tr>
-                <td>{{ $dt->level_id }}</td>
-                <td>{{ $dt->level_kode }}</td>
-                <td>{{ $dt->level_nama }}</td>
+                <td>{{ $d->level_id }}</td>
+                <td>{{ $d->level_kode }}</td>
+                <td>{{ $d->level_nama }}</td>
             </tr>
         @endforeach
     </table>
