@@ -62,6 +62,13 @@
                     <p>Transaksi Penjualan</p>
                 </a>
             </li>
+            <li class="nav-header">Log Out</li>
+            <li class="nav-item">
+                <a href="{{ url('/logout') }}" class="nav-link {{ $activeMenu == 'penjualan' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-cash-register"></i>
+                    <p>Log out</p>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>
