@@ -27,7 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [WelcomeController::class, 'index']);
     
     // USER
-    Route::group(['prefix' => 'user'], function () {
+    Route::middleware(['authorize:ADM'])->group(function() {
         Route::get('/', [UserController::class, 'index']);         // menampilkan halaman awal user
         Route::post('/list', [UserController::class, 'list']);     // menampilkan data user dalam bentuk json untuk datatables
         Route::get('/create', [UserController::class, 'create']);  // menampilkan halaman form tambah user
@@ -62,7 +62,7 @@ Route::middleware(['auth'])->group(function () {
     });
     
     // KATEGORI
-    Route::group(['prefix' => 'kategori'], function () {
+    Route::middleware(['authorize:ADM,MNG,STF,CUS'])->group(function() {
         Route::get('/', [KategoriController::class, 'index']);
         Route::get('/create', [KategoriController::class, 'create']);
         Route::post('/', [KategoriController::class, 'store']);
@@ -79,7 +79,7 @@ Route::middleware(['auth'])->group(function () {
     });
     
     // SUPPLIER
-    Route::group(['prefix' => 'supplier'], function () {
+    Route::middleware(['authorize:ADM,MNG'])->group(function() {
         Route::get('/', [SupplierController::class, 'index']);
         Route::get('/create', [SupplierController::class, 'create']);
         Route::post('/', [SupplierController::class, 'store']);
@@ -96,7 +96,7 @@ Route::middleware(['auth'])->group(function () {
     });
     
     // BARANG
-    Route::group(['prefix' => 'barang'], function () {
+    Route::middleware(['authorize:ADM,MNG'])->group(function() {
         Route::get('/', [BarangController::class, 'index']);
         Route::get('/create', [BarangController::class, 'create']);
         Route::post('/', [BarangController::class, 'store']);
@@ -113,9 +113,8 @@ Route::middleware(['auth'])->group(function () {
     });
     
     // PRODUCTS
-    Route::prefix('category')->group(function () {
+    Route::middleware(['authorize:ADM,MNG'])->group(function() {
         Route::get('/', [ProductsController::class, 'index']);
-    
         Route::get('/food-beverage', [ProductsController::class, 'foodBeverage']);
         Route::get('/beauty-health', [ProductsController::class, 'beautyHealth']);
         Route::get('/home-care', [ProductsController::class, 'homeCare']);
