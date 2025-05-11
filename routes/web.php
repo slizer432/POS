@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
     });
     
     // LEVEL
-    Route::group(['prefix' => 'level'], function () {
+    Route::middleware(['authorize:ADM'])->group(function() {
         Route::get('/', [LevelController::class, 'index']);
         Route::get('/create', [LevelController::class, 'create']);
         Route::post('/', [LevelController::class, 'store']);
