@@ -121,9 +121,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/barang/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']);
         Route::delete('/barang/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
         Route::delete('/barang/{id}', [BarangController::class, 'destroy']);
+        Route::post('barang/list', [BarangController::class, 'list']);
         Route::get('/barang/import',[BarangController::class, 'import']);
         Route::post('/barang/import_ajax', [BarangController::class, 'import_ajax']);
-        Route::post('barang/list', [BarangController::class, 'list']);
+        Route::get('/barang/export_excel', [BarangController::class, 'export_excel']); // ajax export excel
     });
     
     // PRODUCTS
