@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/import',[UserController::class, 'import']);
         Route::post('/user/import_ajax', [UserController::class, 'import_ajax']);
         Route::get('/user/export_excel', [UserController::class, 'export_excel']);
+        Route::get('user/export_pdf', [UserController::class, 'export_pdf']);
     });
     
     // LEVEL
@@ -66,6 +67,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/level/import_ajax', [LevelController::class, 'import_ajax']);
         Route::post('level/list', [LevelController::class, 'list']);
         Route::get('/level/export_excel', [LevelController::class, 'export_excel']);
+        Route::get('/level/export_pdf', [LevelController::class, 'export_pdf']);
     });
     
     // KATEGORI
@@ -87,6 +89,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/kategori/import_ajax', [KategoriController::class, 'import_ajax']);
         Route::post('kategori/list', [KategoriController::class, 'list']);
         Route::get('/level/export_excel', [LevelController::class, 'export_excel']);
+        Route::get('/level/export_pdf', [LevelController::class, 'export_pdf']);
     });
     
     // SUPPLIER
@@ -108,6 +111,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/supplier/import_ajax', [SupplierController::class, 'import_ajax']);
         Route::post('supplier/list', [SupplierController::class, 'list']);
         Route::get('/supplier/export_excel', [SupplierController::class, 'export_excel']);
+        Route::get('/supplier/export_pdf', [SupplierController::class, 'export_pdf']);
+
     });
     
     // BARANG
@@ -129,7 +134,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/barang/import',[BarangController::class, 'import']);
         Route::post('/barang/import_ajax', [BarangController::class, 'import_ajax']);
         Route::get('/barang/export_excel', [BarangController::class, 'export_excel']); // ajax export excel
-        Route::get('barang/export_pdf', [BarangController::class, 'export_pdf']); // ajax export pdf
+        Route::get('/barang/export_pdf', [BarangController::class, 'export_pdf']); // ajax export pdf
     });
     
     // PRODUCTS
