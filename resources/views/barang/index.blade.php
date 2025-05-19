@@ -1,13 +1,13 @@
 @extends('layouts.template')
-
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Daftar barang</h3>
+            <h3 class="card-title">{{ $breadcrumb->title }}</h3>
             <div class="card-tools">
                 <button onclick="modalAction('{{ url('/barang/import') }}')" class="btn btn-info">Import Barang</button>
                 <a href="{{ url('/barang/create') }}" class="btn btn-primary">Tambah Data</a>
-                <button onclick="modalAction('{{ url('/barang/create_ajax') }}')" class="btn btn-success">Tambah Data (Ajax)</button>
+                <button onclick="modalAction('{{ url('/barang/create_ajax') }}')" class="btn btn-success">Tambah Data
+                    (Ajax)</button>
             </div>
         </div>
         <div class="card-body">
@@ -20,7 +20,7 @@
                             <div class="col-md-3">
                                 <select name="filter_kategori" class="form-control form-control-sm filter_kategori">
                                     <option value="">- Semua -</option>
-                                    @foreach($kategori as $l)
+                                    @foreach ($kategori as $l)
                                         <option value="{{ $l->kategori_id }}">{{ $l->kategori_nama }}</option>
                                     @endforeach
                                 </select>
@@ -30,14 +30,12 @@
                     </div>
                 </div>
             </div>
-
-            @if(session('success'))
+            @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
-            @if(session('error'))
+            @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
-
             <table class="table table-bordered table-sm table-striped table-hover" id="table-barang">
                 <thead>
                     <tr>
@@ -53,100 +51,88 @@
                 <tbody></tbody>
             </table>
         </div>
-
-        <div id="myModal" class="modal fade animate shake" tabindex="-1" data-backdrop="static" data-keyboard="false" data-width="75%"></div>
     </div>
+    <div id="myModal" class="modal fade animate shake" tabindex="-1" data-backdrop="static" data-keyboard="false"
+        data-width="75%"></div>
 @endsection
-
 @push('js')
-<script>
-function modalAction(url = '') {
-    $('#myModal').load(url, function() {
-        $('#myModal').modal('show');
-    });
-}
-
-var tableBarang;
-$(document).ready(function(){
-    tableBarang = $('#table-barang').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: "{{ url('/barang/list') }}",
-            dataType: "json",
-            type: "POST",
-            data: function (d) {
-                d.filter_kategori = $('.filter_kategori').val();
-            }
-        },
-        columns: [
-            {
-                data: 'No_Urut',
-                className: "text-center",
-                width: "5%",
-                orderable: false,
-                searchable: false
-            },
-            {
-                data: 'barang_kode',
-                className: "",
-                width: "10%",
-                orderable: true,
-                searchable: true
-            },
-            {
-                data: 'barang_nama',
-                className: "",
-                width: "37%",
-                orderable: true,
-                searchable: true
-            },
-            {
-                data: 'harga_beli',
-                className: "",
-                width: "10%",
-                orderable: true,
-                searchable: false,
-                render: function(data, type, row){
-                    return new Intl.NumberFormat('id-ID').format(data);
-                }
-            },
-            {
-                data: 'harga_jual',
-                className: "",
-                width: "10%",
-                orderable: true,
-                searchable: false,
-                render: function(data, type, row){
-                    return new Intl.NumberFormat('id-ID').format(data);
-                }
-            },
-            {
-                data: 'kategori.kategori_nama',
-                className: "",
-                width: "14%",
-                orderable: true,
-                searchable: false
-            },
-            {
-                data: 'aksi',
-                className: "text-center",
-                width: "14%",
-                orderable: false,
-                searchable: false
-            }
-        ]
-    });
-
-    $('#table-barang_filter input').unbind().bind().on('keyup', function(e){
-        if(e.keyCode == 13){ // enter key
-            tableBarang.search(this.value).draw();
+    <script>
+        function modalAction(url = '') {
+            $('#myModal').load(url, function() {
+                $('#myModal').modal('show');
+            });
         }
-    });
-
-    $('.filter_kategori').change(function(){
-        tableBarang.draw();
-    });
-});
-</script>
+        let dataBarang;
+        $(document).ready(function() {
+            dataBarang = $('#table-barang').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    "url": "{{ url('barang/list') }}",
+                    "dataType": "json",
+                    "type": "POST",
+                    "data": function(d) {
+                        d.filter_kategori = $('.filter_kategori').val();
+                    }
+                },
+                columns: [{
+                    data: "barang_id",
+                    className: "text-center",
+                    width: "5%",
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: "barang_kode",
+                    className: "",
+                    width: "10%",
+                    orderable: true,
+                    searchable: true
+                }, {
+                    data: "barang_nama",
+                    className: "",
+                    width: "37%",
+                    orderable: true,
+                    searchable: true,
+                }, {
+                    data: "harga_beli",
+                    className: "",
+                    width: "10%",
+                    orderable: true,
+                    searchable: false,
+                    render: function(data, type, row) {
+                        return new Intl.NumberFormat('id-ID').format(data);
+                    }
+                }, {
+                    data: "harga_jual",
+                    className: "",
+                    width: "10%",
+                    orderable: true,
+                    searchable: false,
+                    render: function(data, type, row) {
+                        return new Intl.NumberFormat('id-ID').format(data);
+                    }
+                }, {
+                    data: "kategori.kategori_nama",
+                    className: "",
+                    width: "14%",
+                    orderable: true,
+                    searchable: false
+                }, {
+                    data: "aksi",
+                    className: "text-center",
+                    width: "14%",
+                    orderable: false,
+                    searchable: false
+                }]
+            });
+            $('#table-barang_filter input').unbind().bind().on('keyup', function(e) {
+                if (e.keyCode == 13) { // enter key
+                    tableBarang.search(this.value).draw();
+                }
+            });
+            $('.filter_kategori').change(function() {
+                tableBarang.draw();
+            });
+        });
+    </script>
 @endpush

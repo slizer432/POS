@@ -42,6 +42,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/{id}/delete_ajax', [UserController::class, 'confirm_ajax']); // Untuk tampilkan form confirm delete user Ajax
         Route::delete('/user/{id}/delete_ajax', [UserController::class, 'delete_ajax']); // Untuk hapus data user Ajax
         Route::delete('/user/{id}', [UserController::class, 'destroy']); // menghapus data user
+        Route::get('/user/import',[UserController::class, 'import']);
+        Route::post('/user/import_ajax', [UserController::class, 'import_ajax']);
     });
     
     // LEVEL
@@ -59,6 +61,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/level/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']); // Untuk tampilkan form confirm delete level Ajax
         Route::delete('/level/{id}/delete_ajax', [LevelController::class, 'delete_ajax']); // Untuk hapus data level Ajax
         Route::delete('/level/{id}', [LevelController::class, 'destroy']);
+        Route::get('/level/import',[LevelController::class, 'import']);
+        Route::post('/level/import_ajax', [LevelController::class, 'import_ajax']);
+        Route::post('level/list', [LevelController::class, 'list']);
     });
     
     // KATEGORI
@@ -76,6 +81,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/kategori/{id}/delete_ajax', [KategoriController::class, 'confirm_ajax']);
         Route::delete('/kategori/{id}/delete_ajax', [KategoriController::class, 'delete_ajax']);
         Route::delete('/kategori/{id}', [KategoriController::class, 'destroy']);
+        Route::get('/kategori/import',[KategoriController::class, 'import']);
+        Route::post('/kategori/import_ajax', [KategoriController::class, 'import_ajax']);
+        Route::post('kategori/list', [KategoriController::class, 'list']);
     });
     
     // SUPPLIER
@@ -93,6 +101,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/supplier/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']);
         Route::delete('/supplier/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']);
         Route::delete('/supplier/{id}', [SupplierController::class, 'destroy']);
+        Route::get('/supplier/import',[SupplierController::class, 'import']);
+        Route::post('/supplier/import_ajax', [SupplierController::class, 'import_ajax']);
+        Route::post('supplier/list', [SupplierController::class, 'list']);
     });
     
     // BARANG
@@ -102,7 +113,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/barang', [BarangController::class, 'store']);
         Route::get('/barang/create_ajax', [BarangController::class, 'create_ajax']);
         Route::post('/barang/ajax', [BarangController::class, 'store_ajax']);
-        Route::get('/barang/{id}/show_ajax', [BarangController::class, 'show_ajax']);
+        Route::get('/barang/{id}', [BarangController::class, 'show']);
         Route::get('/barang/{id}/edit', [BarangController::class, 'edit']);
         Route::put('/barang/{id}', [BarangController::class, 'update']);
         Route::get('/barang/{id}/edit_ajax', [BarangController::class, 'edit_ajax']);
